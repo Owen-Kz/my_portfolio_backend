@@ -36,7 +36,7 @@ const storage = multer.diskStorage({
 const uploads = multer({ 
   storage,
   limits: { fileSize: 50 * 1024 * 1024 } // 50MB limit
-}).array("files", 10); // Max 10 files
+}).array("files", 40); // Max 10 files
 
 const uploadFiles = async (req, res) => {
   try {
@@ -53,6 +53,9 @@ const uploadFiles = async (req, res) => {
         return res.status(400).json({ error: "Title and category are required" });
       }
 
+      if(req.files && req.files.length > 40) {
+        return res.status(400).json({ error: "You can upload a maximum of 40 files" });
+      }
       if (!req.files || req.files.length === 0) {
         return res.status(400).json({ error: "At least one image is required" });
       }
