@@ -9,6 +9,7 @@ const deleteItem = require('../controllers/helpers/deleteFile');
 const ValidateToken = require('../controllers/auth/ValidateToken');
 const {retrieveDevFiles, retrieveDevFileById} = require('../controllers/retrieveDevFiles');
 const {getDevPortfolioItems} = require('../controllers/helpers/getDevPorfolioItems');
+const uploadDevFiles = require('../controllers/uploadDevFiles');
 // Enable CORS for this router
 router.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -33,7 +34,7 @@ router.get("/countMyPortfolioItems", ValidateToken, getDevPortfolioItems);
 // router.get("/getPortfolioItemsByUser", ValidateToken, require('../controllers/helpers/getPortfolioItemsByUser'));
 router.post("/deleteItem", ValidateToken, deleteItem)
 router.post("/uploadFiles", ValidateToken, uploadFiles);
-router.post("/uploadDevFiles", ValidateToken, require('../controllers/uploadDevFiles'));
+router.post("/uploadDevFiles", ValidateToken, uploadDevFiles);
 router.get("/dev-portfolio", retrieveDevFiles);
 router.get("/dev-portfolio/:id", retrieveDevFileById);
 router.get('/', (req, res) => {
