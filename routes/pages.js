@@ -30,6 +30,7 @@ router.get("/countMyPortfolioItems", ValidateToken, require('../controllers/help
 // router.get("/getPortfolioItemsByUser", ValidateToken, require('../controllers/helpers/getPortfolioItemsByUser'));
 router.post("/deleteItem", ValidateToken, deleteItem)
 router.post("/uploadFiles", ValidateToken, uploadFiles);
+router.post("/uploadDevFiles", ValidateToken, require('../controllers/uploadDevFiles'));
 
 router.get('/', (req, res) => {
     res.status(200).json({ message: 'Welcome to InkCase Backend API' });

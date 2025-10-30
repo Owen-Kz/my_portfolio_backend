@@ -13,6 +13,7 @@ const ValidateToken = async (req,res, next) =>{
         // Verify the token
         jwt.verify(token, process.env.JWT_SECRET, async (err, decoded) => {
             if (err) {
+                console.log(err)
                 return res.status(401).json({ error: 'Invalid token' });
             }
             const userData = await dbPromise.query('SELECT user_id, username, email FROM users WHERE user_id = ?', [decoded.userId]);
