@@ -13,7 +13,6 @@ const uploadDevFiles = require('../controllers/uploadDevFiles');
 
 // Import the missing functions
 const getPortfolioItems = require('../controllers/helpers/getPorfolioItems');
-const getDevPortfolioItems = require('../controllers/helpers/getDevPorfolioItems'); // You already have this, but make sure it's the correct import
 
 // Enable CORS for this router
 router.use((req, res, next) => {
