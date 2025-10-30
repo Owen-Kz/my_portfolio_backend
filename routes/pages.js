@@ -7,6 +7,7 @@ const login = require('../controllers/auth/login');
 const signup = require('../controllers/auth/signup');
 const deleteItem = require('../controllers/helpers/deleteFile');
 const ValidateToken = require('../controllers/auth/ValidateToken');
+const {retrieveDevFiles, retrieveDevFileById} = require('../controllers/retrieveDevFiles');
 // Enable CORS for this router
 router.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -22,6 +23,7 @@ router.post("/signup", signup)
 router.post("/loggedIn", require('../controllers/auth/loggedIn'));
 
 router.get("/getMyPortfolioItems", ValidateToken, require('../controllers/helpers/getPorfolioItems'));
+router.get("/getDevPortfolioItems", ValidateToken, require('../controllers/helpers/getDevPorfolioItems'));
 router.get("/countMyPortfolioItems", ValidateToken, require('../controllers/helpers/getAllMyItems'));
 // router.get("/getPortfolioItemById", ValidateToken, require('../controllers/helpers/getPortfolioItemById'));
 // router.get("/getPortfolioItemsByCategory", ValidateToken, require('../controllers/helpers/getPortfolioItemsByCategory'));
@@ -31,7 +33,8 @@ router.get("/countMyPortfolioItems", ValidateToken, require('../controllers/help
 router.post("/deleteItem", ValidateToken, deleteItem)
 router.post("/uploadFiles", ValidateToken, uploadFiles);
 router.post("/uploadDevFiles", ValidateToken, require('../controllers/uploadDevFiles'));
-
+router.get("/dev-portfolio", retrieveDevFiles);
+router.get("/dev-portfolio/:id", retrieveDevFileById);
 router.get('/', (req, res) => {
     res.status(200).json({ message: 'Welcome to InkCase Backend API' });
 });
