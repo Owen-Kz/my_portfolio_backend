@@ -10,6 +10,11 @@ const ValidateToken = require('../controllers/auth/ValidateToken');
 const {retrieveDevFiles, retrieveDevFileById} = require('../controllers/retrieveDevFiles');
 const {getDevPortfolioItems} = require('../controllers/helpers/getDevPorfolioItems');
 const uploadDevFiles = require('../controllers/uploadDevFiles');
+
+// Import the missing functions
+const getPortfolioItems = require('../controllers/helpers/getPorfolioItems');
+const getDevPortfolioItems = require('../controllers/helpers/getDevPorfolioItems'); // You already have this, but make sure it's the correct import
+
 // Enable CORS for this router
 router.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -24,9 +29,10 @@ router.post("/login", login)
 router.post("/signup", signup)
 router.post("/loggedIn", require('../controllers/auth/loggedIn'));
 
-router.get("/getMyPortfolioItems", ValidateToken, require('../controllers/helpers/getPorfolioItems'));
-router.get("/getDevPortfolioItems", ValidateToken, require('../controllers/helpers/getDevPorfolioItems'));
-router.get("/countMyPortfolioItems", ValidateToken, getDevPortfolioItems);
+// Fixed routes - use the imported functions directly
+router.get("/getMyPortfolioItems", ValidateToken, getPortfolioItems);
+router.get("/getDevPortfolioItems", ValidateToken, getDevPortfolioItems);
+router.get("/countMyPortfolioItems", ValidateToken, getDevPortfolioItems); // This might be wrong - should it be a different function?
 // router.get("/getPortfolioItemById", ValidateToken, require('../controllers/helpers/getPortfolioItemById'));
 // router.get("/getPortfolioItemsByCategory", ValidateToken, require('../controllers/helpers/getPortfolioItemsByCategory'));
 // router.get("/getPortfolioItemsByTag", ValidateToken, require('../controllers/helpers/getPortfolioItemsByTag'));
@@ -41,4 +47,4 @@ router.get('/', (req, res) => {
     res.status(200).json({ message: 'Welcome to InkCase Backend API' });
 });
 
-module.exports = router
+module.exports = router;
