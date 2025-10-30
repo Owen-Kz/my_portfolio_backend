@@ -8,6 +8,7 @@ const signup = require('../controllers/auth/signup');
 const deleteItem = require('../controllers/helpers/deleteFile');
 const ValidateToken = require('../controllers/auth/ValidateToken');
 const {retrieveDevFiles, retrieveDevFileById} = require('../controllers/retrieveDevFiles');
+const {getDevPortfolioItems} = require('../controllers/helpers/getDevPorfolioItems');
 // Enable CORS for this router
 router.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -24,7 +25,7 @@ router.post("/loggedIn", require('../controllers/auth/loggedIn'));
 
 router.get("/getMyPortfolioItems", ValidateToken, require('../controllers/helpers/getPorfolioItems'));
 router.get("/getDevPortfolioItems", ValidateToken, require('../controllers/helpers/getDevPorfolioItems'));
-router.get("/countMyPortfolioItems", ValidateToken, require('../controllers/helpers/getAllMyItems'));
+router.get("/countMyPortfolioItems", ValidateToken, getDevPortfolioItems);
 // router.get("/getPortfolioItemById", ValidateToken, require('../controllers/helpers/getPortfolioItemById'));
 // router.get("/getPortfolioItemsByCategory", ValidateToken, require('../controllers/helpers/getPortfolioItemsByCategory'));
 // router.get("/getPortfolioItemsByTag", ValidateToken, require('../controllers/helpers/getPortfolioItemsByTag'));
